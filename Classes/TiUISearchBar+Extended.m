@@ -111,26 +111,12 @@
 //extend setBarColor
 -(void)setBarColor_:(id)value
 {
-    NSString * color = [TiUtils stringValue:value];
-    if( [color isEqualToString:@"transparent"] ){
-        // Find SearchBar background and hide it.
-        UISearchBar *search = [self searchBar];
-        for( UIView *subview in [search subviews] ){
-            if( [subview isKindOfClass:NSClassFromString( @"UISearchBarBackground" )] ){
-                [subview setAlpha:0.0F];
-                [subview setUserInteractionEnabled:FALSE];
-                break;
-            }
-        }
-    } else {
-        TiColor * newBarColor = [TiUtils colorValue:value];
-        UISearchBar *search = [self searchBar];
-        [search setBarStyle:[TiUtils barStyleForColor:newBarColor]];
-        [search setTintColor:[TiUtils barColorForColor:newBarColor]];
-        [search setTranslucent:[TiUtils barTranslucencyForColor:newBarColor]];
-    }
+    TiColor * newBarColor = [TiUtils colorValue:value];
+    UISearchBar *search = [self searchBar];
+    search.backgroundImage = [[UIImage alloc] init];
+    search.backgroundColor = [newBarColor color];
 }
-
+     
 -(void)setAppearance_:(id)value
 {
     UITextField *searchTextField = [self searchTextField];
